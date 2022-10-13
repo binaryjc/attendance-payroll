@@ -1,0 +1,10 @@
+CRITICAL - 2022-10-13 14:42:18 --> Invalid file: layouts/Attendance.php
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('layouts/Attendance.php')
+ 2 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->render('layouts/Attendance', [], true)
+ 3 SYSTEMPATH\Common.php(1135): CodeIgniter\View\View->render('pages/attendance', [], true)
+ 4 APPPATH\Controllers\Attendance.php(24): view('pages/attendance', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->index()
+ 6 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 7 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()

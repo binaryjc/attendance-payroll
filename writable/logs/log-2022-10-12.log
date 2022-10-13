@@ -1,0 +1,281 @@
+CRITICAL - 2022-10-12 15:59:25 --> Undefined index: company_code
+in APPPATH\Views\pages\employees\list.php on line 52.
+ 1 APPPATH\Views\pages\employees\list.php(52): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: company_code', 'APPPATH\\Views\\pages\\employees\\list.php', 52, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\pages\\employees\\list.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1135): CodeIgniter\View\View->render('pages/employees/list', [], true)
+ 5 APPPATH\Controllers\Main.php(301): view('pages/employees/list', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Main->employees()
+ 7 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+ 8 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 16:16:42 --> Undefined property: App\Controllers\Main::$att_model
+in APPPATH\Controllers\Main.php on line 583.
+ 1 APPPATH\Controllers\Main.php(583): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined property: App\\Controllers\\Main::$att_model', 'APPPATH\\Controllers\\Main.php', 583, [])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Main->attendances()
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 16:17:10 --> Class 'App\Models\Attendance' not found
+in APPPATH\Controllers\Main.php on line 30.
+ 1 SYSTEMPATH\CodeIgniter.php(858): App\Controllers\Main->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 16:17:41 --> Undefined index: company_code
+in APPPATH\Views\pages\attendances\list.php on line 26.
+ 1 APPPATH\Views\pages\attendances\list.php(26): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index: company_code', 'APPPATH\\Views\\pages\\attendances\\list.php', 26, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\pages\\attendances\\list.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1135): CodeIgniter\View\View->render('pages/attendances/list', [], true)
+ 5 APPPATH\Controllers\Main.php(592): view('pages/attendances/list', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Main->attendances()
+ 7 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+ 8 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 16:21:03 --> Too few arguments to function App\Controllers\Main::employee_dtr(), 0 passed in C:\xampp\htdocs\ci4_payroll\system\CodeIgniter.php on line 896 and exactly 1 expected
+in APPPATH\Controllers\Main.php on line 594.
+ 1 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Main->employee_dtr()
+ 2 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+ 3 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 16:21:13 --> Call to a member function paginate() on array
+in APPPATH\Controllers\Main.php on line 603.
+ 1 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Main->employee_dtr('1')
+ 2 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Main))
+ 3 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:25:55 --> Invalid file: pages/attendance.php
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('pages/attendance.php')
+ 2 SYSTEMPATH\Common.php(1135): CodeIgniter\View\View->render('pages/attendance', [], true)
+ 3 APPPATH\Controllers\Attendance.php(22): view('pages/attendance', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->index()
+ 5 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 6 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:27:22 --> Undefined variable: attendances
+in APPPATH\Views\pages\attendances\list.php on line 22.
+ 1 APPPATH\Views\pages\attendances\list.php(22): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: attendances', 'APPPATH\\Views\\pages\\attendances\\list.php', 22, [...])
+ 2 SYSTEMPATH\View\View.php(213): include('APPPATH\\Views\\pages\\attendances\\list.php')
+ 3 SYSTEMPATH\View\View.php(216): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1135): CodeIgniter\View\View->render('pages/attendances/list', [], true)
+ 5 APPPATH\Controllers\Attendance.php(22): view('pages/attendances/list', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->index()
+ 7 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 8 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:28:34 --> Invalid file: pages/attendance.php
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 33.
+ 1 SYSTEMPATH\View\View.php(201): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('pages/attendance.php')
+ 2 SYSTEMPATH\Common.php(1135): CodeIgniter\View\View->render('pages/attendance', [], true)
+ 3 APPPATH\Controllers\Attendance.php(60): view('pages/attendance', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->add()
+ 5 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 6 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:38:01 --> syntax error, unexpected '->' (T_OBJECT_OPERATOR)
+in APPPATH\Controllers\Attendance.php on line 85.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(261): CodeIgniter\Autoloader\Autoloader->includeFile('APPPATH\\Controllers\\Attendance.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(239): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Attendance')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Attendance')
+ 4 [internal function]: spl_autoload_call('App\\Controllers\\Attendance')
+ 5 SYSTEMPATH\CodeIgniter.php(846): class_exists('\\App\\Controllers\\Attendance', true)
+ 6 SYSTEMPATH\CodeIgniter.php(453): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:38:11 --> Call to undefined method App\Models\Attendance::group_by
+in SYSTEMPATH\Model.php on line 773.
+ 1 APPPATH\Controllers\Attendance.php(85): CodeIgniter\Model->__call('group_by', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:42:11 --> Undefined variable: userModel
+in APPPATH\Controllers\Attendance.php on line 81.
+ 1 APPPATH\Controllers\Attendance.php(81): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: userModel', 'APPPATH\\Controllers\\Attendance.php', 81, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:42:18 --> Undefined variable: att_model
+in APPPATH\Controllers\Attendance.php on line 81.
+ 1 APPPATH\Controllers\Attendance.php(81): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: att_model', 'APPPATH\\Controllers\\Attendance.php', 81, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:42:43 --> Cannot declare class App\Controllers\Attendance because the name is already in use
+in APPPATH\Controllers\Attendance.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2022-10-12 19:43:29 --> Undefined variable: att_model
+in APPPATH\Controllers\Attendance.php on line 81.
+ 1 APPPATH\Controllers\Attendance.php(81): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: att_model', 'APPPATH\\Controllers\\Attendance.php', 81, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:43:49 --> Undefined variable: att_model
+in APPPATH\Controllers\Attendance.php on line 81.
+ 1 APPPATH\Controllers\Attendance.php(81): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: att_model', 'APPPATH\\Controllers\\Attendance.php', 81, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:44:10 --> Call to undefined method App\Models\Attendance::group_by
+in SYSTEMPATH\Model.php on line 773.
+ 1 APPPATH\Controllers\Attendance.php(87): CodeIgniter\Model->__call('group_by', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:45:30 --> syntax error, unexpected '$db' (T_VARIABLE), expecting function (T_FUNCTION) or const (T_CONST)
+in APPPATH\Models\Attendance.php on line 43.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(261): CodeIgniter\Autoloader\Autoloader->includeFile('APPPATH\\Models\\Attendance.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(239): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Attendance')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Attendance')
+ 4 APPPATH\Controllers\Attendance.php(16): spl_autoload_call('App\\Models\\Attendance')
+ 5 SYSTEMPATH\CodeIgniter.php(858): App\Controllers\Attendance->__construct()
+ 6 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->createController()
+ 7 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:50:38 --> Undefined variable: dtrs
+in APPPATH\Controllers\Attendance.php on line 91.
+ 1 APPPATH\Controllers\Attendance.php(91): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: dtrs', 'APPPATH\\Controllers\\Attendance.php', 91, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 19:55:21 --> Undefined variable: dtrs
+in APPPATH\Controllers\Attendance.php on line 96.
+ 1 APPPATH\Controllers\Attendance.php(96): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: dtrs', 'APPPATH\\Controllers\\Attendance.php', 96, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:01:28 --> Too few arguments to function App\Models\Attendance::__construct(), 0 passed in C:\xampp\htdocs\ci4_payroll\app\Controllers\Attendance.php on line 16 and exactly 1 expected
+in APPPATH\Models\Attendance.php on line 43.
+ 1 APPPATH\Controllers\Attendance.php(16): App\Models\Attendance->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(858): App\Controllers\Attendance->__construct()
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:02:06 --> Argument 1 passed to App\Models\Attendance::__construct() must be an instance of App\Models\ConnectionInterface, object given, called in C:\xampp\htdocs\ci4_payroll\app\Controllers\Attendance.php on line 17
+in APPPATH\Models\Attendance.php on line 43.
+ 1 APPPATH\Controllers\Attendance.php(17): App\Models\Attendance->__construct(Object(CodeIgniter\Database\MySQLi\Connection))
+ 2 SYSTEMPATH\CodeIgniter.php(858): App\Controllers\Attendance->__construct()
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->createController()
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:03:30 --> Undefined variable: att_model
+in APPPATH\Controllers\Attendance.php on line 82.
+ 1 APPPATH\Controllers\Attendance.php(82): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: att_model', 'APPPATH\\Controllers\\Attendance.php', 82, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:04:05 --> Undefined variable: dtrs
+in APPPATH\Controllers\Attendance.php on line 101.
+ 1 APPPATH\Controllers\Attendance.php(101): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: dtrs', 'APPPATH\\Controllers\\Attendance.php', 101, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:04:30 --> Undefined variable: dtrs
+in APPPATH\Controllers\Attendance.php on line 101.
+ 1 APPPATH\Controllers\Attendance.php(101): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: dtrs', 'APPPATH\\Controllers\\Attendance.php', 101, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:04:32 --> Undefined variable: dtrs
+in APPPATH\Controllers\Attendance.php on line 101.
+ 1 APPPATH\Controllers\Attendance.php(101): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: dtrs', 'APPPATH\\Controllers\\Attendance.php', 101, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:04:47 --> Undefined variable: dtrs
+in APPPATH\Controllers\Attendance.php on line 102.
+ 1 APPPATH\Controllers\Attendance.php(102): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: dtrs', 'APPPATH\\Controllers\\Attendance.php', 102, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 3 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 4 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:05:06 --> syntax error, unexpected 'die' (T_EXIT)
+in APPPATH\Controllers\Attendance.php on line 87.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(261): CodeIgniter\Autoloader\Autoloader->includeFile('APPPATH\\Controllers\\Attendance.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(239): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\Attendance')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\Attendance')
+ 4 [internal function]: spl_autoload_call('App\\Controllers\\Attendance')
+ 5 SYSTEMPATH\CodeIgniter.php(846): class_exists('\\App\\Controllers\\Attendance', true)
+ 6 SYSTEMPATH\CodeIgniter.php(453): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:27:38 --> Undefined variable: final_array
+in APPPATH\Models\Attendance.php on line 54.
+ 1 APPPATH\Models\Attendance.php(54): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: final_array', 'APPPATH\\Models\\Attendance.php', 54, [...])
+ 2 APPPATH\Controllers\Attendance.php(84): App\Models\Attendance->getEmployeeDTR('1')
+ 3 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 4 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 5 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:30:18 --> Call to undefined method CodeIgniter\Database\MySQLi\Connection::last_query()
+in APPPATH\Models\Attendance.php on line 76.
+ 1 APPPATH\Models\Attendance.php(59): App\Models\Attendance->get_login_am('1', '2022-10-11')
+ 2 APPPATH\Controllers\Attendance.php(84): App\Models\Attendance->getEmployeeDTR('1')
+ 3 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 4 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 5 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:30:46 --> Call to a member function last_query() on null
+in APPPATH\Models\Attendance.php on line 77.
+ 1 APPPATH\Models\Attendance.php(59): App\Models\Attendance->get_login_am('1', '2022-10-11')
+ 2 APPPATH\Controllers\Attendance.php(84): App\Models\Attendance->getEmployeeDTR('1')
+ 3 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 4 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 5 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2022-10-12 20:32:01 --> Undefined variable: executedQuery
+in APPPATH\Models\Attendance.php on line 77.
+ 1 APPPATH\Models\Attendance.php(77): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined variable: executedQuery', 'APPPATH\\Models\\Attendance.php', 77, [...])
+ 2 APPPATH\Models\Attendance.php(60): App\Models\Attendance->get_login_am('1', '2022-10-11')
+ 3 APPPATH\Controllers\Attendance.php(84): App\Models\Attendance->getEmployeeDTR('1')
+ 4 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 5 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+ 6 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
+ERROR - 2022-10-12 20:32:44 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%2022-10-11%'' at line 6
+CRITICAL - 2022-10-12 20:32:44 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= '%2022-10-11%'' at line 6
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 292.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(292): mysqli->query('SELECT *
+FROM `attendance`
+WHERE `employee_id` = \'1\'
+AND `log_type` = 1
+AND `time_type` = \'am\'
+AND `created_at` LIKE = \'%2022-10-11%\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(695): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `attendance`
+WHERE `employee_id` = \'1\'
+AND `log_type` = 1
+AND `time_type` = \'am\'
+AND `created_at` LIKE = \'%2022-10-11%\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(609): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `attendance`
+WHERE `employee_id` = \'1\'
+AND `log_type` = 1
+AND `time_type` = \'am\'
+AND `created_at` LIKE = \'%2022-10-11%\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1585): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `attendance`
+WHERE `employee_id` = :employee_id:
+AND `log_type` = :log_type:
+AND `time_type` = :time_type:
+AND `created_at` LIKE = :created_at LIKE:', [...], false)
+ 5 APPPATH\Models\Attendance.php(75): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Models\Attendance.php(60): App\Models\Attendance->get_login_am('1', '2022-10-11')
+ 7 APPPATH\Controllers\Attendance.php(84): App\Models\Attendance->getEmployeeDTR('1')
+ 8 SYSTEMPATH\CodeIgniter.php(896): App\Controllers\Attendance->employee_dtr('1')
+ 9 SYSTEMPATH\CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Attendance))
+10 SYSTEMPATH\CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH\index.php(55): CodeIgniter\CodeIgniter->run()
