@@ -91,29 +91,101 @@ class Attendance extends BaseController
         $result = $this->att_model->getEmployeeDTR($id);
 
         echo '<pre>';
-        print_r($result);die();
-        echo json_encode($result);
-/*$db = db_connect();
-$sql = "SELECT `attendance`.*, `employees`.code, CONCAT(`employees`.last_name, ', ', `employees`.first_name, COALESCE(CONCAT(' ', `employees`.middle_name), '')) as `name` 
-    FROM attendance 
-    INNER JOIN employees on attendance.employee_id = employees.id
-    WHERE employees.id = ?";
-$db->query($sql, [3]);
 
-        $this->data['attendances'] = $dtrs = $this->att_model
-                                    ->select("`attendance`.*, `employees`.code, CONCAT(`employees`.last_name, ', ', `employees`.first_name, COALESCE(CONCAT(' ', `employees`.middle_name), '')) as `name`")
-                                    ->join('employees','`attendance.employee_id = employees.id`','inner')
-                                    ->where("employees.id = $id");
-                                    //->paginate($this->data['perPage']);
-*/
-        echo '<pre>';
-        print_r($dtrs);
+        $combined_array = array();
+            
+        foreach ($result as $row) {
+            $temp = array();
+            $temp = $row;
+
+            $late = 0;
+            foreach ($row['time'] as $time => $value) {
+                //echo '<br/>'.$time;
+                if($value != null || $value != ''){
+
+                    //late morning only
+                    if($time == 'in_am'){
+                        $created_at = $value;
+                        $dt = new \DateTime($created_at);
+                        $date = $dt->format('Y-m-d');
+                        $time = $dt->format('H:i:s'); //time in database
+
+                        $schemedatetime = new \DateTime($date.' 08:00:00 AM');
+                        $scheme_time = $schemedatetime->format('H:i:s');
+
+                        $temp['time']['startdate'] = $schemedatetime; 
+                        $temp['time']['starttime'] = $scheme_time; 
+
+                        //check if time is late, otherwise dont count late minutes
+                        if($dt > $schemedatetime){
+                            $diff = $schemedatetime->diff($dt);
+                            $total_minutes = ($diff->days * 24 * 60); 
+                            $total_minutes += ($diff->h * 60); 
+                            $total_minutes += $diff->i; 
+
+                            $late += $total_minutes;
+                        }
+                    }//check am
+
+                    //late pm only
+                    if($time == 'in_pm'){
+                        $created_at = $value;
+                        $dt = new \DateTime($created_at);
+                        $date = $dt->format('Y-m-d');
+                        $time = $dt->format('H:i:s'); //time in database
+
+                        $schemedatetime = new \DateTime($date.' 13:00:00');
+                        $scheme_time = $schemedatetime->format('H:i:s');
+
+                        $temp['time']['startdate'] = $schemedatetime; 
+                        $temp['time']['starttime'] = $scheme_time; 
+
+                        //check if time is late, otherwise dont count late minutes
+                        if($dt > $schemedatetime){
+                            $diff = $schemedatetime->diff($dt);
+                            $total_minutes = ($diff->days * 24 * 60); 
+                            $total_minutes += ($diff->h * 60); 
+                            $total_minutes += $diff->i; 
+
+                            $late += $total_minutes;
+                        }
+                    }//check pm
+
+
+                }
+
+            }
+
+            $temp['late'] = $late;
+
+            $combined_array[] = $temp;
+        }
+        //get timeframe
+        //solve for late
+        //solve for undertime
+
+        print_r($combined_array);
+
+        die();
+        echo json_encode($result);
+        /*$db = db_connect();
+        $sql = "SELECT `attendance`.*, `employees`.code, CONCAT(`employees`.last_name, ', ', `employees`.first_name, COALESCE(CONCAT(' ', `employees`.middle_name), '')) as `name` 
+            FROM attendance 
+            INNER JOIN employees on attendance.employee_id = employees.id
+            WHERE employees.id = ?";
+        $db->query($sql, [3]);
+
+                $this->data['attendances'] = $dtrs = $this->att_model
+                                            ->select("`attendance`.*, `employees`.code, CONCAT(`employees`.last_name, ', ', `employees`.first_name, COALESCE(CONCAT(' ', `employees`.middle_name), '')) as `name`")
+                                            ->join('employees','`attendance.employee_id = employees.id`','inner')
+                                            ->where("employees.id = $id");
+                                            //->paginate($this->data['perPage']);
+        */
+
 
         //$this->data['total'] =  count($dtrs);
         //$this->data['total_res'] = is_array($this->data['attendances'])? count($this->data['attendances']) : 0;
         //$this->data['pager'] = $this->att_model->pager;
-
-
         //return view('pages/attendances/dtr', $this->data);
     }
 

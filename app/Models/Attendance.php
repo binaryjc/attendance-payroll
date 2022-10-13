@@ -14,7 +14,7 @@ class Attendance extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['employee_id','log_type'];
+    protected $allowedFields    = ['employee_id','log_type','time_type'];
 
     // Dates
     protected $useTimestamps = false;
@@ -56,10 +56,10 @@ class Attendance extends Model
             $temp = array();
             $temp = $row;
             $new_date = date("Y-m-d",strtotime($row['created_at']));
-            $temp['in_am'] = $this->get_attendance_entry_type($id,$new_date,'am',1);
-            $temp['out_am'] = $this->get_attendance_entry_type($id,$new_date,'am',2);
-            $temp['in_pm'] = $this->get_attendance_entry_type($id,$new_date,'pm',1);
-            $temp['out_pm'] = $this->get_attendance_entry_type($id,$new_date,'pm',2);
+            $temp['time']['in_am'] = $this->get_attendance_entry_type($id,$new_date,'am',1);
+            $temp['time']['out_am'] = $this->get_attendance_entry_type($id,$new_date,'am',2);
+            $temp['time']['in_pm'] = $this->get_attendance_entry_type($id,$new_date,'pm',1);
+            $temp['time']['out_pm'] = $this->get_attendance_entry_type($id,$new_date,'pm',2);
             $final_array[] = $temp;
         }
 
@@ -69,6 +69,7 @@ class Attendance extends Model
     function get_attendance_entry_type($id,$date,$time_type,$log_type){
         $db = db_connect();
         $builder = $this->db->table('attendance');
+        $builder->select('created_at');
         $builder->where('employee_id', $id);
         $builder->where('log_type', $log_type);
         $builder->where('time_type', $time_type);
@@ -76,7 +77,13 @@ class Attendance extends Model
 
         $res = $builder->get()->getRowArray();
 
-        return $res;
+        if(isset($res['created_at'])){
+           return $res['created_at']; 
+       }else{
+            return null;
+       }
+
+        
     }
 
 }
