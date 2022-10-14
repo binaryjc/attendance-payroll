@@ -93,16 +93,20 @@ class Attendance extends BaseController
         echo '<pre>';
 
         $combined_array = array();
-            
+        
+        //FIXED TIME SCHEME 8-12 1-5    
         foreach ($result as $row) {
             $temp = array();
             $temp = $row;
 
             $late = 0;
-            foreach ($row['time'] as $time => $value) {
-                //echo '<br/>'.$time;
-                if($value != null || $value != ''){
+            $undertime = 0;
+            $overtime = 0;
 
+            //SOLVING FOR LATE
+            foreach ($row['time'] as $time => $value) {
+
+                if($value != null || $value != ''){
                     //late morning only
                     if($time == 'in_am'){
                         $created_at = $value;
@@ -112,9 +116,6 @@ class Attendance extends BaseController
 
                         $schemedatetime = new \DateTime($date.' 08:00:00 AM');
                         $scheme_time = $schemedatetime->format('H:i:s');
-
-                        $temp['time']['startdate'] = $schemedatetime; 
-                        $temp['time']['starttime'] = $scheme_time; 
 
                         //check if time is late, otherwise dont count late minutes
                         if($dt > $schemedatetime){
@@ -137,9 +138,6 @@ class Attendance extends BaseController
                         $schemedatetime = new \DateTime($date.' 13:00:00');
                         $scheme_time = $schemedatetime->format('H:i:s');
 
-                        $temp['time']['startdate'] = $schemedatetime; 
-                        $temp['time']['starttime'] = $scheme_time; 
-
                         //check if time is late, otherwise dont count late minutes
                         if($dt > $schemedatetime){
                             $diff = $schemedatetime->diff($dt);
@@ -150,13 +148,64 @@ class Attendance extends BaseController
                             $late += $total_minutes;
                         }
                     }//check pm
-
-
                 }
 
             }
 
+            //SOLVING FOR AM UNDERTIME - if logout value exists
+            if($row['time']['out_am'] !=null || $row['time']['out_am'] != ''){
+
+                $out_am = new \DateTime($row['time']['out_am']);
+                    $date = $out_am->format('Y-m-d');
+                    $schemedatetime_outam = new \DateTime($date.' 12:00:00');
+                
+                //calculate if less then expected logout time
+                if($out_am < $schemedatetime_outam){
+                    $am_kulangtime = $this->getdiffminutes($out_am,$schemedatetime_outam); // 12pm minus the employee logout time
+                    $undertime += $am_kulangtime;
+                }
+            }else{
+                //no logout value exists
+                $undertime += 240; //plus 4hours undertime
+            }
+
+            //SOLVING FOR PM UNDERTIME - if logout value exists
+            if($row['time']['out_pm'] !=null || $row['time']['out_pm'] != ''){
+
+                $out_pm = new \DateTime($row['time']['out_pm']);
+                    $date = $out_pm->format('Y-m-d');
+                    $schemedatetime_outpm = new \DateTime($date.' 17:00:00');
+                
+                //calculate if less then expected logout time
+                if($out_pm < $schemedatetime_outpm){
+                    $pm_kulangtime = $this->getdiffminutes($out_pm,$schemedatetime_outpm); // 12pm minus the employee logout time
+                    $undertime += $pm_kulangtime;
+                }
+            }else{
+                //no logout value exists
+                $undertime += 240; //plus 4hours undertime
+            }
+
+            //SOLVING FOR OVERTIME
+            if($row['time']['out_pm'] !=null || $row['time']['out_pm'] != ''){
+                //excess time lang sa hapon
+
+                $out_pm = new \DateTime($row['time']['out_pm']);
+                    $date = $out_pm->format('Y-m-d');
+                    $schemedatetime_outpm = new \DateTime($date.' 17:00:00');
+                
+                //calculate if logout time exceeds expected scheme time
+                if($out_pm > $schemedatetime_outpm){
+                    $pm_overtime = $this->getdiffminutes($schemedatetime_outpm,$out_pm); // 12pm minus the employee logout time
+                    $overtime += $pm_overtime;
+                }
+
+            }
+
+
             $temp['late'] = $late;
+            $temp['undertime'] = $undertime;
+            $temp['overtime'] = $overtime;
 
             $combined_array[] = $temp;
         }
@@ -187,6 +236,17 @@ class Attendance extends BaseController
         //$this->data['total_res'] = is_array($this->data['attendances'])? count($this->data['attendances']) : 0;
         //$this->data['pager'] = $this->att_model->pager;
         //return view('pages/attendances/dtr', $this->data);
+    }
+
+    function getdiffminutes($dtime1,$dtime2){
+        $output = 0;
+        $diff = $dtime2->diff($dtime1);
+        $total_minutes = ($diff->days * 24 * 60); 
+        $total_minutes += ($diff->h * 60); 
+        $total_minutes += $diff->i; 
+
+        $output += $total_minutes;
+        return $output;        
     }
 
     public function attendance_delete($id=''){
