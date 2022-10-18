@@ -44,6 +44,13 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+                            <div class="col-sm-12 col-xs-12 mb-3">
+                                <label for="employee_id" class="control-label">Click Button:</label>
+                                <a id="btn_autocomputedtr" class="btn btn-primary" type="button">COMPUTE DTR</a>
+                                <div id="computed_dtr_wrapper">
+                                    
+                                </div>
+                            </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-3">
                                 <label for="present" class="control-label">Present <sup>days</sup></label>
                                 <input type="number" class="form-control rounded-0" id="present" name="present" min="0" step="any" required>
@@ -227,5 +234,46 @@
         })
 
     })
+
+</script>
+
+<script src="<?php echo base_url() ?>/public/assets/scripts/ajax.js" ></script>
+<script type="text/javascript">
+    
+        $('#btn_autocomputedtr').click(function(){
+            $("#computed_dtr_wrapper").empty();
+            let payroll_id = $("#payroll_id").val();
+            let employee_id = $("#employee_id").val();
+
+            let formdata = new FormData();
+            formdata.append('payroll_id', payroll_id);
+            formdata.append('employee_id', employee_id);
+
+            let ajax = new Ajax()
+            ajax.post('<?=base_url()?>/Attendance/computeforpayslip').execute_form(formdata, (res) => {
+                    try{
+                            let json = JSON.parse(res)
+                            if(json.hasOwnProperty('result')){
+                                    if(json.result == 0){
+                                            alert('NO DTR');
+                                    }else{
+                                            //console.log(json.result.workingdays);
+                                            $("#present").val(json.result.workingdays);
+                                            $("#late_undertime").val(json.result.final_late_ut);
+                                            $("#computed_dtr_wrapper").append(`
+                                            <label><strong>Late:</strong> ${json.result.final_late}</label><br/>
+                                            <label><strong>Undertime:</strong> ${json.result.final_ut}</label><br/>
+                                            <label><strong>Overtime:</strong> ${json.result.final_ot}</label><br/>
+                                            `);
+                                            compute_total();
+
+                                    }
+                            }
+                    }catch(err){
+                            console.log(err)
+                    }
+            })
+        });
+
 </script>
 <?= $this->endSection() ?>

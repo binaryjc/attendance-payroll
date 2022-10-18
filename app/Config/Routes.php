@@ -74,6 +74,7 @@ $routes->group('Attendance', static function($routes){
 
     $routes->get('employee_dtr_table', 'Attendance::employee_dtr_table');
     $routes->post('employee_dtr', 'Attendance::employee_dtr');
+    $routes->post('computeforpayslip', 'Attendance::computeforpayslip');
 });
 
 
