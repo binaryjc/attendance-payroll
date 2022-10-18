@@ -70,6 +70,10 @@ $routes->group('Attendance', static function($routes){
     $routes->get('(:segment)', 'Attendance::$1');
     $routes->get('(:segment)/(:any)', 'Attendance::$1/$2');
     $routes->match(['post'], 'add', 'Attendance::add');
+
+
+    $routes->get('employee_dtr_table', 'Attendance::employee_dtr_table');
+    $routes->post('employee_dtr', 'Attendance::employee_dtr');
 });
 
 

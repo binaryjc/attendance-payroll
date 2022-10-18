@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Employee;
 use App\Models\Attendance as Att_Model;
+
 class Attendance extends BaseController
 { 
     protected $request;
@@ -82,17 +83,38 @@ class Attendance extends BaseController
         $this->data['pager'] = $this->att_model->pager;
         return view('pages/attendances/list', $this->data);
     }
-    public function employee_dtr($id){
+
+    function employee_dtr_table(){
+
+        $this->data['employees'] = $this->emp_model->select("*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`")->findAll();
+        $this->data['page_title']="Attendace";
+        return view('pages/attendances/dtr_employee_table', $this->data);
+
+    }
+
+    public function employee_dtr(){
         $this->data['page_title']="Attendances";
         //$this->data['page'] =  !empty($this->request->getVar('page')) ? $this->request->getVar('page') : 1;
         //$this->data['perPage'] =  10;
         //$builder = $this->$att_model->builder();
 
-        $result = $this->att_model->getEmployeeDTR($id);
+        $request = service('request');
+        $id = $request->getPost('employee_id');
+        $datefrom = $request->getPost('from_date');
+        $dateto = $request->getPost('to_date');
 
-        echo '<pre>';
+        $result = $this->att_model->getEmployeeDTR($id,$datefrom,$dateto);
+        $workingdays = $this->number_of_working_days($datefrom,$dateto);
+
+        /*echo '<pre>';
+        echo $workingdays .'<br/>';
+        echo $id .'<br/>';
+        echo $datefrom.'<br/>';
+        echo $dateto.'<br/>';*/
 
         $combined_array = array();
+
+        $final_late = $final_ut = $final_ot = 0;
         
         //FIXED TIME SCHEME 8-12 1-5    
         foreach ($result as $row) {
@@ -208,34 +230,30 @@ class Attendance extends BaseController
             $temp['overtime'] = $overtime;
 
             $combined_array[] = $temp;
+
+            $final_late += $late;
+            $final_ut += $undertime;
+            $final_ot += $overtime;
         }
-        //get timeframe
-        //solve for late
-        //solve for undertime
 
-        print_r($combined_array);
+        /*echo $final_late .'<br/>';
+        echo $final_ut .'<br/>';
+        echo $final_ot .'<br/>';*/
 
-        die();
-        echo json_encode($result);
-        /*$db = db_connect();
-        $sql = "SELECT `attendance`.*, `employees`.code, CONCAT(`employees`.last_name, ', ', `employees`.first_name, COALESCE(CONCAT(' ', `employees`.middle_name), '')) as `name` 
-            FROM attendance 
-            INNER JOIN employees on attendance.employee_id = employees.id
-            WHERE employees.id = ?";
-        $db->query($sql, [3]);
+        $this->data['datefrom'] = $datefrom;
+        $this->data['dateto'] = $dateto;
+        $this->data['attendances'] = $combined_array;
+        $this->data['workingdays'] = $workingdays;
+        $this->data['final_late'] = $final_late;
+        $this->data['final_ut'] = $final_ut;
+        $this->data['final_ot'] = $final_ot;
 
-                $this->data['attendances'] = $dtrs = $this->att_model
-                                            ->select("`attendance`.*, `employees`.code, CONCAT(`employees`.last_name, ', ', `employees`.first_name, COALESCE(CONCAT(' ', `employees`.middle_name), '')) as `name`")
-                                            ->join('employees','`attendance.employee_id = employees.id`','inner')
-                                            ->where("employees.id = $id");
-                                            //->paginate($this->data['perPage']);
-        */
-
+        //print_r($combined_array);
 
         //$this->data['total'] =  count($dtrs);
         //$this->data['total_res'] = is_array($this->data['attendances'])? count($this->data['attendances']) : 0;
         //$this->data['pager'] = $this->att_model->pager;
-        //return view('pages/attendances/dtr', $this->data);
+        return view('pages/attendances/dtr', $this->data);
     }
 
     function getdiffminutes($dtime1,$dtime2){
@@ -247,6 +265,26 @@ class Attendance extends BaseController
 
         $output += $total_minutes;
         return $output;        
+    }
+
+    function number_of_working_days($from, $to) {
+        $workingDays = [1, 2, 3, 4, 5]; # date format = N (1 = Monday, ...)
+        $holidayDays = ['*-12-25', '*-01-01']; # variable and fixed holidays
+
+        $from = new \DateTime($from);
+        $to = new \DateTime($to);
+        $to->modify('+1 day');
+        $interval = new \DateInterval('P1D');
+        $periods = new \DatePeriod($from, $interval, $to);
+
+        $days = 0;
+        foreach ($periods as $period) {
+            if (!in_array($period->format('N'), $workingDays)) continue;
+            if (in_array($period->format('Y-m-d'), $holidayDays)) continue;
+            if (in_array($period->format('*-m-d'), $holidayDays)) continue;
+            $days++;
+        }
+        return $days;
     }
 
     public function attendance_delete($id=''){

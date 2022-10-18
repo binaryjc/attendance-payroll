@@ -42,11 +42,13 @@ class Attendance extends Model
 
 
 
-    function getEmployeeDTR($id){
+    function getEmployeeDTR($id,$datefrom,$dateto){
         $db = db_connect();
         $builder = $this->db->table('attendance');
 
         $builder->where('employee_id', $id);
+        $builder->where('created_at >=', $datefrom);
+        $builder->where('created_at <=', $dateto);
         $builder->groupBy('MONTH(created_at), DAY(created_at) ,YEAR(created_at)');
 
         $raw_results = $builder->get()->getResultArray();

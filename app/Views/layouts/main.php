@@ -60,6 +60,7 @@
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Departments' ? 'active' : '' ?>" href="<?= base_url('Main/departments') ?>">Departments</a></li>
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Designations' ? 'active' : '' ?>" href="<?= base_url('Main/designations') ?>">Designations</a></li>
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Employees' ? 'active' : '' ?>" href="<?= base_url('Main/employees') ?>">Employees</a></li>
+            <li><a class="nav-link <?= isset($page_title) && $page_title == 'Employees' ? 'active' : '' ?>" href="<?= base_url('Attendance/employee_dtr_table') ?>">DTR</a></li>
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Payrolls' ? 'active' : '' ?>" href="<?= base_url('Main/payrolls') ?>">Payrolls</a></li>
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Payslips' ? 'active' : '' ?>" href="<?= base_url('Main/payslips') ?>">Payslips</a></li>
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Users' ? 'active' : '' ?>" href="<?= base_url('Main/users') ?>">Users</a></li>
