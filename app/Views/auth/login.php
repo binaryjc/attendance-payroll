@@ -1,6 +1,7 @@
 <?= $this->extend('layouts/login_base') ?>
 
 <?= $this->section('content') ?>
+<img src="<?=base_url()?>/public/assets/images/adslablogo.png">
 <h2 class="text-center py-5"><?= env('system_name') ?></h2>
 <div class="col-lg-3 col-md-4 col-sm-10 col-xs-12">
     <div class="card rounded-0">
