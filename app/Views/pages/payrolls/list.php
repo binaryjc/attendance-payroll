@@ -41,6 +41,7 @@
                             <td class="px-2 py-1 align-middle"><?= date("M d, Y", strtotime($row['to_date'])) ?></td>
                             <td class="px-2 py-1 align-middle text-center">
                                 <a href="<?= base_url('Main/payroll_edit/'.$row['id']) ?>" class="mx-2 text-decoration-none text-primary"><i class="fa fa-edit"></i></a>
+                                <a href="<?= base_url('Main/payslips_under_payroll/'.$row['id']) ?>" class="mx-2 text-decoration-none text-primary"><i class="fa fa-list"></i></a>
                                 <a href="<?= base_url('Main/payroll_delete/'.$row['id']) ?>" class="mx-2 text-decoration-none text-danger" onclick="if(confirm('Are you sure to delete <?= $row['code'] ?> from list?') !== true) event.preventDefault()"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>

@@ -10,6 +10,7 @@ use App\Models\Payslip;
 use App\Models\PayslipEarnings;
 use App\Models\PayslipDeductions;
 use App\Models\Attendance;
+use App\Models\CashAdvanceModel;
 class Main extends BaseController
 {   
     protected $request;
@@ -28,6 +29,7 @@ class Main extends BaseController
         $this->payslip_ded_model = new PayslipDeductions;
         $this->payslip_model = new Payslip;
         $this->att_model = new Attendance;
+        $this->ca_model = new CashAdvanceModel;
         $this->data = ['session' => $this->session,'request'=>$this->request];
     }
 
@@ -284,10 +286,6 @@ class Main extends BaseController
         $this->data['page_title']="Employees";
         $this->data['page'] =  !empty($this->request->getVar('page')) ? $this->request->getVar('page') : 1;
         $this->data['perPage'] =  10;
-        if(!empty($this->request->getVar('search'))){
-            $search = $this->request->getVar('search');
-            $this->emp_model->where(" employees.`code` like '%{$search}%' or employees.`first_name` like '%{$search}%' or employees.`middle_name` like '%{$search}%' or employees.`last_name` like '%{$search}%' or CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) like '%{$search}%'");
-        }
         $this->data['total'] =  $this->emp_model->countAllResults();
         if(!empty($this->request->getVar('search'))){
             $search = $this->request->getVar('search');
@@ -491,10 +489,30 @@ class Main extends BaseController
         $this->data['page'] =  !empty($this->request->getVar('page')) ? $this->request->getVar('page') : 1;
         $this->data['perPage'] =  10;
         $this->data['total'] =  $this->payslip_model->countAllResults();
+        if(!empty($this->request->getVar('search'))){
+            $search = $this->request->getVar('search');
+            $this->payslip_model->where(" employees.code like '%{$search}%' or employees.`first_name` like '%{$search}%' or employees.`middle_name` like '%{$search}%' or employees.`last_name` like '%{$search}%' or CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) like '%{$search}%'");
+        }
         $this->data['payslips'] = $this->payslip_model
                                         ->select("`payslips`.*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `employee_name`, employees.code as employee_code, payrolls.code as payroll_code, payrolls.title as payroll_name")
                                         ->join('payrolls'," payslips.payroll_id = payrolls.id ",'inner')
                                         ->join('employees'," payslips.employee_id = employees.id ",'inner')
+                                        ->paginate($this->data['perPage']);
+        $this->data['total_res'] = is_array($this->data['payslips'])? count($this->data['payslips']) : 0;
+        $this->data['pager'] = $this->payslip_model->pager;
+        return view('pages/payslips/list', $this->data);
+    }
+    // payslip
+    public function payslips_under_payroll($id){
+        $this->data['page_title']="Payroll Slips";
+        $this->data['page'] =  !empty($this->request->getVar('page')) ? $this->request->getVar('page') : 1;
+        $this->data['perPage'] =  10;
+        $this->data['total'] =  $this->payslip_model->countAllResults();
+        $this->data['payslips'] = $this->payslip_model
+                                        ->select("`payslips`.*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `employee_name`, employees.code as employee_code, payrolls.code as payroll_code, payrolls.title as payroll_name")
+                                        ->join('payrolls'," payslips.payroll_id = payrolls.id ",'inner')
+                                        ->join('employees'," payslips.employee_id = employees.id ",'inner')
+                                        ->where("payslips.payroll_id = $id")
                                         ->paginate($this->data['perPage']);
         $this->data['total_res'] = is_array($this->data['payslips'])? count($this->data['payslips']) : 0;
         $this->data['pager'] = $this->payslip_model->pager;
@@ -576,5 +594,97 @@ class Main extends BaseController
         $this->data['deductions'] = $this->payslip_ded_model->where('payslip_id', $id)->findAll();
         return view('pages/payslips/view', $this->data);
     }
-   
+
+    //Cash Advance
+
+    public function cash_advance(){
+        $this->data['page_title']="Cash Advance";
+        $this->data['page'] =  !empty($this->request->getVar('page')) ? $this->request->getVar('page') : 1;
+        $this->data['perPage'] =  10;
+        $this->data['total'] =  $this->ca_model->countAllResults();
+        if(!empty($this->request->getVar('search'))){
+            $search = $this->request->getVar('search');
+            $this->ca_model->where(" employees.code like '%{$search}%' or employees.`first_name` like '%{$search}%' or employees.`middle_name` like '%{$search}%' or employees.`last_name` like '%{$search}%' or CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) like '%{$search}%'");
+        }
+        $this->data['cash_advances'] = $this->ca_model
+                                    ->select("`cash_advances`.*, `employees`.code, CONCAT(`employees`.last_name, ', ', `employees`.first_name, COALESCE(CONCAT(' ', `employees`.middle_name), '')) as `name`")
+                                    ->join('employees','`cash_advances.employee_id = employees.id`','inner')
+                                    ->paginate($this->data['perPage']);
+        $this->data['total_res'] = is_array($this->data['cash_advances'])? count($this->data['cash_advances']) : 0;
+        $this->data['pager'] = $this->ca_model->pager;
+        return view('pages/cashadvance/list', $this->data);
+
+    }
+    public function cash_advance_form(){
+
+        $this->data['employees'] = $this->emp_model->select("*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`")->findAll();
+        $this->data['page_title']="New Cash Advance";
+        return view('pages/cashadvance/add', $this->data);
+    }
+    
+    function cash_advance_add(){
+        if($this->request->getMethod() == 'post'){
+            extract($this->request->getPost());
+            $udata= [];
+            $udata['employee_id'] = $employee_id;
+            $udata['amount'] = $amount;
+            $udata['remarks'] = $remarks;
+            $udata['status'] = $status;
+
+            $save = $this->ca_model->save($udata);
+                if($save){
+                    $this->session->setFlashdata('main_success',"Cash Advance Details has been updated successfully.");
+                    return redirect()->to('Main/cash_advance/');
+                }else{
+                    $this->session->setFlashdata('error',"Cash Advance has failed to update.");
+                }
+            
+        }
+
+        $this->data['page_title']="Add New Cash Advance";
+        return view('pages/cashadvance/add', $this->data);
+
+    }
+
+    function cash_advance_edit($id){
+        if(empty($id)){
+            $this->session->setFlashdata('main_error',"CA ID is unknown.");
+            return redirect()->to('Main/cash_advance');
+        }
+        $this->data['page_title']="CA Details";
+        $this->data['cashad'] = $this->ca_model
+                                    ->select("cash_advances.*, cash_advances.id as ca_id, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`")
+                                    ->join('employees'," cash_advances.employee_id = employees.id ",'left')
+                                    ->where("cash_advances.id = $id")->first();
+        return view('pages/cashadvance/edit', $this->data);
+
+    }
+    function cash_advance_update(){
+
+        if($this->request->getMethod() == 'post'){
+            extract($this->request->getPost());
+
+            $udata= [];
+            $udata['remarks'] = $remarks;
+            $udata['amount'] = $amount;
+            $udata['status'] = $status;
+
+                $update = $this->ca_model->where('id',$ca_id)->set($udata)->update();
+                if($update){
+                    $this->session->setFlashdata('main_success',"CA Details has been updated successfully.");
+                    return redirect()->to('Main/cash_advance/');
+                }else{
+                    $this->session->setFlashdata('error',"CA Details has failed to update.");
+                }
+        }
+
+        $this->data['page_title']="Edit CA";
+        $this->data['cashad'] = $this->ca_model
+                                    ->select("cash_advances.*, cash_advances.id as ca_id, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`")
+                                    ->join('employees'," cash_advances.employee_id = employees.id ",'left')
+                                    ->where("cash_advances.id = $$ca_id")->first();
+        return view('pages/cashadvance/edit', $this->data);
+
+    }
+
 }

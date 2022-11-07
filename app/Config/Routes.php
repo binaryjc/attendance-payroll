@@ -61,6 +61,9 @@ $routes->group('Main', ['filter'=>'authenticate'], static function($routes){
     $routes->match(['post'], 'payroll_add', 'Main::payroll_add/$1');
     $routes->match(['post'], 'payslip_edit/(:num)', 'Main::payslip_edit/$1');
     $routes->match(['post'], 'payslip_add', 'Main::payslip_add/$1');
+
+    $routes->match(['post'], 'cash_advance_add', 'Main::cash_advance_add');
+    $routes->match(['post'], 'cash_advance_update', 'Main::cash_advance_update');
 });
 
 
@@ -72,11 +75,15 @@ $routes->group('Attendance', static function($routes){
     $routes->match(['post'], 'add', 'Attendance::add');
 
 
+    $routes->get('attendance_delete', 'Attendance::attendance_delete');
     $routes->get('employee_dtr_table', 'Attendance::employee_dtr_table');
     $routes->post('employee_dtr', 'Attendance::employee_dtr');
     $routes->post('computeforpayslip', 'Attendance::computeforpayslip');
-});
+    $routes->post('attendance_list_update', 'Attendance::attendance_list_update');
 
+
+    $routes->post('attendance_list_add', 'Attendance::attendance_list_add_entry');
+});
 
 /*
  * --------------------------------------------------------------------

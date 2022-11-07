@@ -23,7 +23,7 @@ class Attendance extends BaseController
 
     public function index()
     {
-        $this->data['page_title']="Attendace";
+        $this->data['page_title']="Attendance";
         return view('pages/attendance', $this->data);
 
     }
@@ -67,7 +67,7 @@ class Attendance extends BaseController
                 }
             }
         }
-        $this->data['page_title']="Attendace";
+        $this->data['page_title']="Attendance";
         return view('pages/attendance', $this->data);
     }
 
@@ -77,25 +77,99 @@ class Attendance extends BaseController
         $this->data['page'] =  !empty($this->request->getVar('page')) ? $this->request->getVar('page') : 1;
         $this->data['perPage'] =  10;
         $this->data['total'] =  $this->att_model->countAllResults();
+        if(!empty($this->request->getVar('search'))){
+            $search = $this->request->getVar('search');
+            $this->att_model->where(" employees.code like '%{$search}%' or employees.`first_name` like '%{$search}%' or employees.`middle_name` like '%{$search}%' or employees.`last_name` like '%{$search}%' or CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) like '%{$search}%'");
+        }
         $this->data['attendances'] = $this->att_model
                                     ->select("`attendance`.*, `employees`.code, CONCAT(`employees`.last_name, ', ', `employees`.first_name, COALESCE(CONCAT(' ', `employees`.middle_name), '')) as `name`")
-                                    ->join('employees','`attendance.employee_id = employees.id`','inner')
+                                    ->join('employees','`attendance.employee_id = employees.id`','inner')->orderBy('updated_at', 'desc')
                                     ->paginate($this->data['perPage']);
         $this->data['total_res'] = is_array($this->data['attendances'])? count($this->data['attendances']) : 0;
         $this->data['pager'] = $this->att_model->pager;
         return view('pages/attendances/list', $this->data);
     }
 
+    function attendance_list_add(){
+        $this->data['employees'] = $this->emp_model->select("*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`")->findAll();
+        $this->data['page_title']="Attendance";
+        return view('pages/attendances/add', $this->data);
+    }
+    function attendance_list_add_entry(){
+
+        if($this->request->getMethod() == 'post'){
+            extract($this->request->getPost());
+            $udata= [];
+            $udata['employee_id'] = $employee_id;
+            $udata['created_at'] = $from_date.' '.$appt;
+            $udata['log_type'] = $log_type;
+            $udata['time_type'] = $time_type;
+
+            $save = $this->att_model->save($udata);
+                if($save){
+                    $this->session->setFlashdata('success',"DTR has been updated successfully.");
+                    return redirect()->to('Attendance/attendance_list/');
+                }else{
+                    $this->session->setFlashdata('error',"DTR has failed to update.");
+                }
+            
+        }
+
+        print_r($_POST);die();
+        $this->data['page_title']="Attendance";
+        return view('pages/attendances/add', $this->data);
+
+    }
+
+    function attendance_edit($id){
+
+        $att = $this->att_model->where('id',$id)->first();
+        $empid = $att['employee_id'];
+        $this->data['dtr_data'] = $att;
+        $this->data['employee'] = $this->emp_model
+                                    ->select("employees.*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`")
+                                    ->where("employees.id = $empid")->first();
+
+        $this->data['page_title']="Attendance";
+        return view('pages/attendances/edit', $this->data);
+    }
+
+    function attendance_list_update(){
+        if($this->request->getMethod() == 'post'){
+            extract($this->request->getPost());
+
+            $udata= [];
+            $udata['created_at'] = $from_date.' '.$appt;
+            $udata['updated_at'] = date('Y-m-d H:i:s');
+            $udata['log_type'] = $log_type;
+            $udata['time_type'] = $time_type;
+
+
+                $update = $this->att_model->where('id',$dtr_id)->set($udata)->update();
+                if($update){
+                    $this->session->setFlashdata('main_success',"DTR Details has been updated successfully.");
+                    return redirect()->to('Attendance/attendance_list/');
+                }else{
+                    $this->session->setFlashdata('error',"DTR Details has failed to update.");
+                }
+        }
+
+
+
+
+    }
+
     function employee_dtr_table(){
 
         $this->data['employees'] = $this->emp_model->select("*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`")->findAll();
-        $this->data['page_title']="Attendace";
+        $this->data['page_title']="Attendance";
         return view('pages/attendances/dtr_employee_table', $this->data);
 
     }
 
     public function employee_dtr(){
         $this->data['page_title']="Attendances";
+
         //$this->data['page'] =  !empty($this->request->getVar('page')) ? $this->request->getVar('page') : 1;
         //$this->data['perPage'] =  10;
         //$builder = $this->$att_model->builder();
@@ -109,10 +183,11 @@ class Attendance extends BaseController
         //$workingdays = $this->number_of_working_days($datefrom,$dateto);
 
         /*echo '<pre>';
-        echo $workingdays .'<br/>';
-        echo $id .'<br/>';
+        //echo $workingdays .'<br/>';
+        //echo $id .'<br/>';
         echo $datefrom.'<br/>';
-        echo $dateto.'<br/>';*/
+        echo $dateto.'<br/>';
+        print_r($result);die();*/
 
         $combined_array = array();
 
@@ -252,6 +327,11 @@ class Attendance extends BaseController
         $this->data['final_ut'] = $final_ut;
         $this->data['final_ot'] = $final_ot;
 
+        $this->data['employee_details'] = $this->emp_model
+                                    ->select("employees.*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`, CONCAT(departments.code,' - ', departments.name) as department, CONCAT(designations.code,' - ', designations.name) as designation")
+                                    ->join('departments'," employees.department_id = departments.id ",'inner')
+                                    ->join('designations'," employees.designation_id = designations.id ",'inner')
+                                    ->where("employees.id = $id")->first();
         //print_r($combined_array);
 
         //$this->data['total'] =  count($dtrs);
@@ -460,6 +540,6 @@ class Attendance extends BaseController
         }else{
             $this->session->setFlashdata('main_error',"Attendance Deletion failed due to unknown ID.");
         }
-        return redirect()->to('Main/attendances');
+        return redirect()->to('Attendance/attendance_list');
     }
 }

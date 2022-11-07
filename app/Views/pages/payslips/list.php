@@ -13,6 +13,16 @@
         </div>
     </div>
     <div class="card-body">
+        <div class="row justify-content-center mb-3">
+            <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                <form action="<?= base_url("Main/payslips") ?>" method="GET">
+                <div class="input-group">
+                    <input type="search" id="search" name="search" placeholder="Search employee's Code or name here.." value="<?= $request->getVar('search') ?>" class="form-control">
+                    <button class="btn btn-outline-default border"><i class="fa fa-search"></i></button>
+                </div>
+                </form>
+            </div>
+        </div>
         <div class="container-fluid">
             <table class="table table-stripped table-bordered">
                 <colgroup>

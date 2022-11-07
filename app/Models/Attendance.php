@@ -14,7 +14,7 @@ class Attendance extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['employee_id','log_type','time_type'];
+    protected $allowedFields    = ['employee_id','log_type','time_type','updated_at','created_at'];
 
     // Dates
     protected $useTimestamps = false;
@@ -47,8 +47,15 @@ class Attendance extends Model
         $builder = $this->db->table('attendance');
 
         $builder->where('employee_id', $id);
+
+        $df = new \DateTime($datefrom);
+        $dt = new \DateTime($dateto);
+        $datefrom = $df->modify('-1 day')->format('Y-m-d');
+        $dateto = $dt->modify('+1 day')->format('Y-m-d');
+
         $builder->where('created_at >=', $datefrom);
         $builder->where('created_at <=', $dateto);
+
         $builder->groupBy('MONTH(created_at), DAY(created_at) ,YEAR(created_at)');
 
         $raw_results = $builder->get()->getResultArray();

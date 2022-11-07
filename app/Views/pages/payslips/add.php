@@ -45,7 +45,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-12 col-xs-12 mb-3">
-                                <label for="employee_id" class="control-label">Click Button:</label>
+                                <label for="employee_id" class="control-label">Click To Compute:</label>
                                 <a id="btn_autocomputedtr" class="btn btn-primary" type="button">COMPUTE DTR</a>
                                 <div id="computed_dtr_wrapper">
                                     
@@ -198,6 +198,10 @@
             salary = sal > 0 ? parseFloat(sal) : 0;
             $('[name="salary"]').val(salary)
             compute_total()
+            $("#computed_dtr_wrapper").empty()
+            $("#present").val(0)
+            $("#late_undertime").val(0)
+            $("#net").val(0)
         })
 
         $('#add_earning').click(function(){
