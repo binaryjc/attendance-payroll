@@ -48,7 +48,7 @@
 <body class="bg-dark bg-gradient bg-opacity-25">
     <nav class="navbar navbar-expand-md navbar-dark bg-primary bg-gradient">
     <div class="container">
-        <a class="navbar-brand" href="https://sourcecodester.com"><?= env('short_name') ?></a>
+        <a class="navbar-brand" href="<?=base_url()?>"><?= env('short_name') ?></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,12 +57,11 @@
             <li class="nav-item">
                 <a class="nav-link <?= isset($page_title) && $page_title == 'Home' ? 'active' : '' ?>" aria-current="page" href="<?= base_url() ?>">Home</a>
             </li>
-            <li><a class="nav-link <?= isset($page_title) && $page_title == 'Departments' ? 'active' : '' ?>" href="<?= base_url('Main/departments') ?>">Departments</a></li>
-            <li><a class="nav-link <?= isset($page_title) && $page_title == 'Designations' ? 'active' : '' ?>" href="<?= base_url('Main/designations') ?>">Designations</a></li>
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Employees' ? 'active' : '' ?>" href="<?= base_url('Main/employees') ?>">Employees</a></li>
-            <li><a class="nav-link <?= isset($page_title) && $page_title == 'Employees' ? 'active' : '' ?>" href="<?= base_url('Attendance/employee_dtr_table') ?>">DTR</a></li>
+            <li><a class="nav-link <?= isset($page_title) && $page_title == 'Attendance' ? 'active' : '' ?>" href="<?= base_url('Attendance/employee_dtr_table') ?>">DTR</a></li>
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Payrolls' ? 'active' : '' ?>" href="<?= base_url('Main/payrolls') ?>">Payrolls</a></li>
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Payslips' ? 'active' : '' ?>" href="<?= base_url('Main/payslips') ?>">Payslips</a></li>
+            <li><a class="nav-link <?= isset($page_title) && $page_title == 'Cash Advance' ? 'active' : '' ?>" href="<?= base_url('Main/cash_advance') ?>">Cash Advance</a></li>
             <li><a class="nav-link <?= isset($page_title) && $page_title == 'Users' ? 'active' : '' ?>" href="<?= base_url('Main/users') ?>">Users</a></li>
         </ul>
         <div class="dropdown">

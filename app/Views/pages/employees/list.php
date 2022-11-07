@@ -8,6 +8,10 @@
                 <div class="card-title h4 mb-0 fw-bolder">List of Employees</div>
             </div>
             <div class="col-auto">
+           <a class="btn btn btn-primary bg-gradient rounded-0" href="<?= base_url('Main/departments') ?>">Departments</a>
+           <a class="btn btn btn-primary bg-gradient rounded-0" href="<?= base_url('Main/designations') ?>">Designations</a>
+
+
                 <a href="<?= base_url('Main/employee_add') ?>" class="btn btn btn-primary bg-gradient rounded-0"><i class="fa fa-plus-square"></i> Add Employee</a>
             </div>
         </div>
