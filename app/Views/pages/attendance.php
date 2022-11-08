@@ -1,7 +1,6 @@
 <?= $this->extend('layouts/Attendance') ?>
 
 <?= $this->section('content') ?>
-<h2 class="text-center py-5"><?= env('system_name') ?></h2>
 <div class="col-lg-3 col-md-4 col-sm-10 col-xs-12">
     <div class="card rounded-0">
         <div class="card-header">
@@ -25,8 +24,11 @@
                         <input type="text" class="form-control rounded-0" id="company_code" name="company_code" autofocus placeholder="XXXXX" value="<?= !empty($request->getPost('company_code')) ? $request->getPost('company_code') : '' ?>" required="required">
                     </div>
                     <div class="mb-3 text-center">
-                        <button class="btn rounded-0 btn-primary bg-gradient" name="time_in">Time In</button>
-                        <button class="btn rounded-0 btn-danger bg-gradient" name="time_out">Time Out</button>
+                        <button class="btn rounded-0 btn-primary btn-lg bg-gradient" name="time_in">Time In</button>
+                        <button class="btn rounded-0 btn-danger btn-lg bg-gradient" name="time_out">Time Out</button>
+                    </div>
+                    <div class="mb-3 text-center">
+                        <img src="<?=base_url()?>/public/assets/images/adslablogo.png">
                     </div>
                     <div class="mb-3">
                     </div>

@@ -560,7 +560,7 @@ class Main extends BaseController
             }
         }
         $this->data['employees'] = $this->emp_model->select("*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`")->findAll();
-        $this->data['payrolls'] = $this->payroll_model->orderBy('created_at', 'desc')->findAll(10,0);
+        $this->data['payrolls'] = $this->payroll_model->orderBy('created_at', 'desc')->findAll(10,0); //first new 10 payrolls created
         $this->data['page_title']="Add New Payslip";
         return view('pages/payslips/add', $this->data);
     }
