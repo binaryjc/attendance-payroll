@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2022 at 05:29 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.24
+-- Generation Time: Nov 08, 2022 at 02:52 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -50,7 +50,15 @@ INSERT INTO `attendance` (`id`, `employee_id`, `created_at`, `log_type`, `time_t
 (11, 1, '2022-10-13 14:59:09', 1, 'am', '2022-10-13 14:59:09'),
 (12, 1, '2022-10-13 14:59:12', 1, 'pm', '2022-10-13 14:59:12'),
 (13, 1, '2022-10-13 14:59:14', 2, 'am', '2022-10-13 14:59:14'),
-(14, 1, '2022-10-13 14:59:15', 2, 'pm', '2022-10-13 14:59:15');
+(14, 1, '2022-10-13 14:59:15', 2, 'pm', '2022-10-13 14:59:15'),
+(19, 31, '2022-11-07 07:01:00', 1, 'am', '2022-11-07 14:49:00'),
+(20, 31, '2022-11-07 12:20:00', 2, 'am', '2022-11-07 14:49:36'),
+(21, 31, '2022-11-07 12:49:00', 1, 'pm', '2022-11-07 14:49:59'),
+(22, 31, '2022-11-07 17:50:00', 2, 'pm', '2022-11-07 14:50:28'),
+(23, 31, '2022-11-08 07:01:00', 1, 'am', '2022-11-07 14:49:00'),
+(24, 31, '2022-11-08 12:20:00', 2, 'am', '2022-11-07 14:49:36'),
+(25, 31, '2022-11-08 12:49:00', 1, 'pm', '2022-11-07 14:49:59'),
+(26, 31, '2022-11-08 17:50:00', 2, 'pm', '2022-11-07 14:50:28');
 
 -- --------------------------------------------------------
 
@@ -74,6 +82,31 @@ CREATE TABLE `attendance_scheme` (
 
 INSERT INTO `attendance_scheme` (`id`, `time_in_am`, `time_out_am`, `time_in_pm`, `time_out_pm`, `created_at`, `updated_at`) VALUES
 (1, '08:00:00', '12:00:00', '13:00:00', '17:00:00', '2022-10-12 12:59:10', '2022-10-12 12:59:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cash_advances`
+--
+
+CREATE TABLE `cash_advances` (
+  `id` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `deleted_at` datetime NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `remarks` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cash_advances`
+--
+
+INSERT INTO `cash_advances` (`id`, `status`, `amount`, `created_at`, `updated_at`, `deleted_at`, `employee_id`, `remarks`) VALUES
+(1, 'new', 5000, '2022-11-07 11:58:41', '2022-11-07 11:58:41', '0000-00-00 00:00:00', 31, 'motor'),
+(3, 'new', 7000, '2022-11-07 12:33:28', '2022-11-07 13:51:54', '0000-00-00 00:00:00', 1, 'balay');
 
 -- --------------------------------------------------------
 
@@ -205,7 +238,8 @@ CREATE TABLE `payrolls` (
 INSERT INTO `payrolls` (`id`, `code`, `title`, `from_date`, `to_date`, `created_at`, `updated_at`) VALUES
 (1, 'Payroll-1001', 'Sample Payroll #1', '2022-05-01', '2022-05-15', '2022-06-23 11:53:47', '2022-06-23 11:55:22'),
 (2, 'Payroll-1002', 'Sample Payroll #2', '2022-05-16', '2022-05-31', '2022-06-23 11:55:55', '2022-06-23 11:55:55'),
-(4, 'ASD123', 'Sweldo', '2022-10-01', '2022-10-15', '2022-10-12 16:00:51', '2022-10-12 16:00:51');
+(4, 'ASD123', 'Sweldo', '2022-10-01', '2022-10-15', '2022-10-12 16:00:51', '2022-10-12 16:00:51'),
+(5, '234', 'Oct1-15', '2022-11-01', '2022-11-15', '2022-11-07 15:29:32', '2022-11-07 15:29:32');
 
 -- --------------------------------------------------------
 
@@ -259,7 +293,7 @@ CREATE TABLE `payslips` (
 --
 
 INSERT INTO `payslips` (`id`, `payroll_id`, `employee_id`, `salary`, `present`, `late_undertime`, `witholding_tax`, `net`, `created_at`, `updated_at`) VALUES
-(4, 4, 31, 40000.00, 11.00, 0.00, 0.00, 19950.00, '2022-10-12 16:04:09', '2022-10-12 16:04:09');
+(5, 4, 1, 34000.00, 3.00, 1154.00, 0.00, 920.83, '2022-10-18 11:47:34', '2022-10-18 11:47:34');
 
 -- --------------------------------------------------------
 
@@ -297,6 +331,12 @@ ALTER TABLE `attendance`
 -- Indexes for table `attendance_scheme`
 --
 ALTER TABLE `attendance_scheme`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cash_advances`
+--
+ALTER TABLE `cash_advances`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -365,13 +405,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `attendance_scheme`
 --
 ALTER TABLE `attendance_scheme`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `cash_advances`
+--
+ALTER TABLE `cash_advances`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -401,13 +447,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payrolls`
 --
 ALTER TABLE `payrolls`
-  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `payslips`
 --
 ALTER TABLE `payslips`
-  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
