@@ -24,7 +24,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://localhost/ci4_payroll';
+    public $baseURL = 'http://localhost/attendance-payroll';
 
     /**
      * --------------------------------------------------------------------------
