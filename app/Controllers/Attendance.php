@@ -234,7 +234,7 @@ class Attendance extends BaseController
                         $date = $dt->format('Y-m-d');
                         $time = $dt->format('H:i:s'); //time in database
 
-                        $schemedatetime = new \DateTime($date.' 13:00:00');
+                        $schemedatetime = new \DateTime($date.' 13:30:00');
                         $scheme_time = $schemedatetime->format('H:i:s');
 
                         //check if time is late, otherwise dont count late minutes
@@ -273,7 +273,7 @@ class Attendance extends BaseController
 
                 $out_pm = new \DateTime($row['time']['out_pm']);
                     $date = $out_pm->format('Y-m-d');
-                    $schemedatetime_outpm = new \DateTime($date.' 17:00:00');
+                    $schemedatetime_outpm = new \DateTime($date.' 17:30:00');
                 
                 //calculate if less then expected logout time
                 if($out_pm < $schemedatetime_outpm){
@@ -291,7 +291,7 @@ class Attendance extends BaseController
 
                 $out_pm = new \DateTime($row['time']['out_pm']);
                     $date = $out_pm->format('Y-m-d');
-                    $schemedatetime_outpm = new \DateTime($date.' 17:00:00');
+                    $schemedatetime_outpm = new \DateTime($date.' 18:00:00');
                 
                 //calculate if logout time exceeds expected scheme time
                 if($out_pm > $schemedatetime_outpm){
