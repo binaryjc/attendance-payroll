@@ -7,7 +7,7 @@ Please Open your **XAMPP/WAMP's Control Panel** and start **Apache** and **MySQL
 
 ## Instructions
 
-1. Create new Database naming "payroll_db"
+1. Create new Database naming "payroll_db_clean"
 2. Import the sql file located @ database directory
 3. Browse the project in a Browser i.e. [http://localhost/ci4_payroll]
 
@@ -15,5 +15,3 @@ Please Open your **XAMPP/WAMP's Control Panel** and start **Apache** and **MySQL
 
 - **Email:** admin@mail.com
 - **Password:** admin123
-
-This demo source code was created by **oretnom23**
