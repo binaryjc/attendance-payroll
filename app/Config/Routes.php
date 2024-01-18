@@ -70,6 +70,7 @@ $routes->group('Main', ['filter'=>'authenticate'], static function($routes){
 $routes->group('Attendance', static function($routes){
     $routes->get('', 'Attendance::index');
     $routes->get('list', 'Attendance::attendance_list');
+    $routes->get('dtrlist', 'Attendance::attendance_list_viewing');
     $routes->get('(:segment)', 'Attendance::$1');
     $routes->get('(:segment)/(:any)', 'Attendance::$1/$2');
     $routes->match(['post'], 'add', 'Attendance::add');

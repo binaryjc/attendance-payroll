@@ -90,6 +90,25 @@ class Attendance extends BaseController
         return view('pages/attendances/list', $this->data);
     }
 
+    public function attendance_list_viewing(){
+        $this->data['page_title']="Attendances";
+        $this->data['page'] =  !empty($this->request->getVar('page')) ? $this->request->getVar('page') : 1;
+        $this->data['perPage'] =  10;
+        $this->data['total'] =  $this->att_model->countAllResults();
+        if(!empty($this->request->getVar('search'))){
+            $search = $this->request->getVar('search');
+            $this->att_model->where(" employees.code like '%{$search}%' or employees.`first_name` like '%{$search}%' or employees.`middle_name` like '%{$search}%' or employees.`last_name` like '%{$search}%' or CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) like '%{$search}%'");
+        }
+        $this->data['attendances'] = $this->att_model
+                                    ->select("`attendance`.*, `employees`.code, CONCAT(`employees`.last_name, ', ', `employees`.first_name, COALESCE(CONCAT(' ', `employees`.middle_name), '')) as `name`")
+                                    ->join('employees','`attendance.employee_id = employees.id`','inner')->orderBy('updated_at', 'desc')
+                                    ->paginate($this->data['perPage']);
+        $this->data['total_res'] = is_array($this->data['attendances'])? count($this->data['attendances']) : 0;
+        $this->data['pager'] = $this->att_model->pager;
+        return view('pages/attendances/list2', $this->data);
+
+    }
+
     function attendance_list_add(){
         $this->data['employees'] = $this->emp_model->select("*, CONCAT(employees.last_name, ',', employees.first_name, COALESCE(CONCAT(' ', employees.middle_name), '')) as `name`")->findAll();
         $this->data['page_title']="Attendance";

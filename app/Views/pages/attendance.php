@@ -29,7 +29,13 @@
                     </div>
                     <div class="mb-3 text-center">
                         <img src="<?=base_url()?>/public/assets/images/adslablogo.png">
+                    </div> 
+            
+                    <div class="mb-3 text-center">
+                        <a href="<?=base_url()?>/Attendance/dtrlist" class="btn btn-info">View Attendance Logs</a>
                     </div>
+
+                    
                     <div class="mb-3">
                     </div>
                 </form>
